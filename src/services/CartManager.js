@@ -42,7 +42,7 @@ export default class CartManager {
     async addProductToCart(cartId, productId) {
         const cart = await this.getCartById(cartId);
 
-        let product = await cart.products.find(product => product.product === productId);
+        let product = cart.products.find(product => product.product === productId);
 
         if (!product) {
             product = {
@@ -53,8 +53,7 @@ export default class CartManager {
         } else {
             product.quantity++;
         }
-
-        this.saveToFile();
+        await this.saveToFile();
         return product;
     }
 

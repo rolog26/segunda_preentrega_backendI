@@ -52,7 +52,10 @@ router.post('/:cid/product/:pid', async (req, res) => {
         }
 
         const productManager = new ProductManager();
+        await productManager.init();
         const productExists = await productManager.getProductById(productId);
+        console.log(productExists);
+
         if (!productExists) {
             return res.status(404).json({ error: 'Producto no encontrado'});        
         }
